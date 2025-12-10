@@ -35,22 +35,6 @@ nav ul li a { color:white; text-decoration:none; font-weight:500; transition:0.3
 nav ul li a:hover { color:#00ccff; }
 .menu-toggle { display:none; font-size:26px; color:white; cursor:pointer; }
 
-/* DARK/LIGHT MODE */
-.theme-toggle { position:fixed; right:20px; top:80px; width:60px; height:30px; background:#222; border-radius:30px; display:flex; align-items:center; padding:5px; cursor:pointer; z-index:5000; }
-.toggle-circle { width:20px; height:20px; background:#00ccff; border-radius:50%; transition:0.3s; }
-body.dark { background:#0a0a0a; color:#eee; }
-body.dark nav { background:#001a33b0; }
-body.dark .glass { background:rgba(0,0,0,0.3); border:1px solid rgba(255,255,255,0.2); }
-
-/* HERO */
-.hero { position:relative; width:100%; height:85vh; background:url("YOUR-HERO.jpg") center/cover no-repeat fixed; display:flex; justify-content:center; align-items:center; overflow:hidden;}
-.hero::before { content:""; position:absolute; inset:0; background:inherit; background-size:cover; filter:brightness(0.5); animation:zoomHero 12s ease-in-out infinite alternate; }
-@keyframes zoomHero { 0% { transform:scale(1); } 100% { transform:scale(1.15); } }
-#particles { position:absolute; inset:0; width:100%; height:100%; z-index:2; }
-.hero-content { position:relative; z-index:10; text-align:center; color:white; animation:fadeUp 1.2s ease; }
-.hero-content h1 { font-size:46px; letter-spacing:3px; }
-.hero-content p { font-size:20px; margin-top:10px; }
-
 /* SECTIONS */
 section { padding:70px 15px; max-width:1000px; margin:auto; text-align:center; opacity:0; transform:translateY(40px); transition:1s ease; }
 section.reveal { opacity:1; transform:translateY(0); }
@@ -67,9 +51,6 @@ section.reveal { opacity:1; transform:translateY(0); }
 .gallery-scroll { display:flex; overflow-x:auto; gap:15px; padding:15px; scroll-behavior:smooth; }
 .gallery-scroll img { flex:0 0 auto; width:300px; height:200px; object-fit:cover; border-radius:10px; cursor:pointer; box-shadow:0 4px 12px rgba(0,0,0,0.2); transition:transform 0.3s; }
 .gallery-scroll img:hover { transform:scale(1.05); }
-
-/* WAVES */
-.wave { width:100%; margin-top:-5px; }
 
 /* FOOTER */
 footer { background:#003366; color:white; padding:40px 15px; text-align:center; }
@@ -94,9 +75,6 @@ footer { background:#003366; color:white; padding:40px 15px; text-align:center; 
 <!-- PRELOADER -->
 <div id="preloader"><div class="loader"></div></div>
 
-<!-- DARK MODE -->
-<div class="theme-toggle"><div class="toggle-circle"></div></div>
-
 <!-- NAVBAR -->
 <nav>
   <div class="logo"><img src="YOUR-LOGO.png"><span>SHIV INFRA</span></div>
@@ -111,18 +89,6 @@ footer { background:#003366; color:white; padding:40px 15px; text-align:center; 
     <li><a href="#CONTACT">CONTACT</a></li>
   </ul>
 </nav>
-
-<!-- HERO -->
-<div class="hero">
-  <canvas id="particles"></canvas>
-  <div class="hero-content">
-    <h1>SHIV INFRA</h1>
-    <p>where vision meets precision</p>
-  </div>
-</div>
-
-<!-- WAVES -->
-<img class="wave" src="https://svgshare.com/i/uP3.svg">
 
 <!-- ABOUT -->
 <section id="ABOUT" class="glass">
@@ -170,9 +136,9 @@ footer { background:#003366; color:white; padding:40px 15px; text-align:center; 
 <section id="GALLERY" class="glass">
   <h2>GALLERY</h2>
   <div class="gallery-scroll">
-    <img src="YOUR-WORK-PHOTO.png" alt="Work 1">
-    <img src="PHOTO-RMC.png" alt="Work 2">
-    <img src="PHOTO-RMC.png" alt="Work 3">
+    <img src="PHOTO1.jpg" alt="Work 1">
+    <img src="PHOTO2.jpg" alt="Work 2">
+    <img src="PHOTO3.jpg" alt="Work 3">
   </div>
 </section>
 
@@ -201,14 +167,6 @@ window.addEventListener("scroll", () => {
   document.getElementById("progress-bar").style.width = progress + "%";
 });
 
-/* DARK/LIGHT MODE */
-const toggle = document.querySelector(".theme-toggle");
-const circle = document.querySelector(".toggle-circle");
-toggle.onclick = () => {
-  document.body.classList.toggle("dark");
-  circle.style.transform = document.body.classList.contains("dark") ? "translateX(30px)" : "translateX(0)";
-};
-
 /* REVEAL ANIMATION */
 const sections = document.querySelectorAll("section");
 function reveal() {
@@ -219,34 +177,6 @@ function reveal() {
 }
 window.addEventListener("scroll", reveal);
 reveal();
-
-/* PARTICLES */
-const canvas = document.getElementById("particles");
-const ctx = canvas.getContext("2d");
-canvas.width = innerWidth; canvas.height = innerHeight;
-let particles = [];
-for(let i=0;i<120;i++){
-  particles.push({
-    x:Math.random()*canvas.width,
-    y:Math.random()*canvas.height,
-    size:Math.random()*3+1,
-    speedX:(Math.random()-0.5)*1.5,
-    speedY:(Math.random()-0.5)*1.5
-  });
-}
-function animate(){
-  ctx.clearRect(0,0,canvas.width,canvas.height);
-  particles.forEach(p=>{
-    p.x+=p.speedX; p.y+=p.speedY;
-    if(p.x<0||p.x>canvas.width)p.speedX*=-1;
-    if(p.y<0||p.y>canvas.height)p.speedY*=-1;
-    ctx.fillStyle="#00ccff";
-    ctx.beginPath(); ctx.arc(p.x,p.y,p.size,0,Math.PI*2); ctx.fill();
-  });
-  requestAnimationFrame(animate);
-}
-animate();
-window.onresize = () => { canvas.width = innerWidth; canvas.height = innerHeight; };
 </script>
 
 </body>
